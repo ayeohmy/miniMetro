@@ -8,7 +8,8 @@
 
 
 from Tkinter import *
-
+from Track import *
+from Station import *
 
 # The init function stores all important game data in the data struct
 def init(canvas):
@@ -17,7 +18,15 @@ def init(canvas):
     canvas.data.mouseText = "No mousePresses yet"
     canvas.data.keyText = "No keyPresses yet"
     canvas.data.timerText = "No timerFired calls yet"
+    canvas.data.stationText = "No Stations yet"
     canvas.data.timerCounter = 0
+    canvas.data.stations = []
+    initStations(canvas)
+
+def initStations(canvas):
+    canvas.data.stations.append(Station("square"))
+    canvas.data.stations.append(Station("circle"))
+    canvas.data.stations.append(Station("triangle"))
 
 def mousePressed(canvas, event):
     canvas.data.mouseText = "last mousePressed: " + str((event.x, event.y))
@@ -57,12 +66,15 @@ def redrawAll(canvas): # DK: redrawAll() --> redrawAll(canvas)
     canvas.create_text(150,60,text=canvas.data.keyText)
     canvas.create_text(150,80,text=canvas.data.timerText)
     canvas.create_text(150,100,text=canvas.data.gameSpeed)
+    # canvas.create_text(400, 120, text = str(canvas.data.stations))
 
 
 
 def run():
     # create the root and the canvas
     root = Tk()
+    track = Track("#000000")
+
     canvas = Canvas(root, width=800, height=600)
     canvas.pack()
     # Set up canvas data and call init
