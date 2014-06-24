@@ -21,12 +21,11 @@ def init(canvas):
     canvas.data.stationText = "No Stations yet"
     canvas.data.timerCounter = 0
     canvas.data.stations = []
+    canvas.data.tracks = []
     initStations(canvas)
+    initTracks(canvas)
 
-def initStations(canvas):
-    canvas.data.stations.append(Station("square"))
-    canvas.data.stations.append(Station("circle"))
-    canvas.data.stations.append(Station("triangle"))
+
 
 def mousePressed(canvas, event):
     canvas.data.mouseText = "last mousePressed: " + str((event.x, event.y))
@@ -61,20 +60,47 @@ def timerFired(canvas):
 
 def redrawAll(canvas): # DK: redrawAll() --> redrawAll(canvas)
     canvas.delete(ALL)
+    # draw stations
+    drawStations(canvas)
+    #draw tracks
+
     # draw the text
     canvas.create_text(150,40,text=canvas.data.mouseText)
     canvas.create_text(150,60,text=canvas.data.keyText)
     canvas.create_text(150,80,text=canvas.data.timerText)
     canvas.create_text(150,100,text=canvas.data.gameSpeed)
-    # canvas.create_text(400, 120, text = str(canvas.data.stations))
+    canvas.create_text(400, 120, text = str(canvas.data.stations))
+
+###############################################################################
+#                       P R I V A T E    H E L P E R                          #
+#                             F U N C T I O N S                               #
+###############################################################################
+
+def initStations(canvas):
+    canvas.data.stations.append(Station("square"))
+    canvas.data.stations.append(Station("circle"))
+    canvas.data.stations.append(Station("triangle"))
+
+def initTracks(canvas):
+    canvas.data.tracks.append(Track("#000000"))
+    canvas.data.tracks.append(Track("#FFFFFF"))
+    canvas.data.tracks.append(Track("#0F0F0F"))
+
+def drawStations(canvas):
+    stationText = ""
+    for station in canvas.data.stations:
+        stationText = stationText + str(station.shape) + " "
+    canvas.create_text(150, 300, text = stationText)
 
 
+###############################################################################
+#                                  R U N                                      #
+#                             F U N C T I O N S                               #
+###############################################################################
 
 def run():
     # create the root and the canvas
     root = Tk()
-    track = Track("#000000")
-
     canvas = Canvas(root, width=800, height=600)
     canvas.pack()
     # Set up canvas data and call init
