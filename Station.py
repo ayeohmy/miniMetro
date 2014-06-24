@@ -4,6 +4,8 @@ class Station:
 		self.connected = False
 		self.passengers = []
 		self.stationSize = 6
+		self.next = None
+		self.prev = None
 
 	def waiting(self):
 		return len(self.passengers)

@@ -1,5 +1,11 @@
+
+# Track node 
+# next
+# prev
+# station itself
+
 class Track:
-	def __init__(self, colour):
+    def __init__(self, colour):
 		self.colour = colour
 		self.next = None
 		self.prev = None
@@ -7,4 +13,4 @@ class Track:
 		self.tail = True
 		self.loop = False
 
-
+	def isLastStop(self) 
